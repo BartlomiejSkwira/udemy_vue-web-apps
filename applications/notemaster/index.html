@@ -20,6 +20,7 @@
           <label>Note text</label>
           <textarea class='form-control' v-model='note.text'></textarea>
         </div>
+        <button class='btn btn-primary' @click='addNote'>Submit</button>
       </div>
     </div>
     <script>
@@ -30,6 +31,24 @@
           note: {
             title: '',
             text: ''
+          },
+          notes: [
+            {
+              title: 'title',
+              text: 'text of the first note',
+              date: new Date(Date.now()).toLocaleString()
+            }
+          ]
+        },
+
+        methods: {
+          addNote() {
+            let { title, text} = this.note
+            this.notes.push({
+              title,
+              text,
+              date: new Date(Date.now()).toLocaleString()
+            })
           }
         }
       });
