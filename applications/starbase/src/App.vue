@@ -1,10 +1,13 @@
 <template>
   <div id='app'>
     <h3>{{title}}</h3>
+    <character></character>
   </div>
 </template>
 
 <script>
+import Character from './components/Character.vue'
+
 export default {
   name: 'app',
   data() {
@@ -13,10 +16,8 @@ export default {
     }
   },
 
-  methods: {
-    fetchCharacter() {
-
-    }
+  components: {
+    Character
   }
 }
 </script>
