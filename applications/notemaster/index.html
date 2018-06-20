@@ -33,13 +33,13 @@
       <br />
       <br />
 
-      <div class='col-sm-12 note' v-for='(note, index) in notes'>
+      <div class='col-sm-12 note' v-for='(note, index) in sortedNotes'>
         <div class='card'>
           <button class='close' @click='removeNote(index)'>&times;</button>
           <div class='card-block'>
             <h4 class='card-title'>{{note.title}}</h4>
             <h6 class='card-subtitle mb-2 text-muted'>{{note.date}}</h6>
-            <h6 class='card-subtitle mb-2 text-muted'>{{note.color}}</h6>
+            <h6 class='card-subtitle mb-2 text-muted'>Color: {{note.color}}</h6>
             <p class='card-text'>
               {{note.text}}
             </p>
@@ -58,9 +58,21 @@
           },
           notes: [
             {
-              title: 'title',
+              title: 'red note',
               text: 'text of the first note',
               color: 'red',
+              date: new Date(Date.now()).toLocaleString()
+            },
+            {
+              title: 'blue note',
+              text: 'text of the first note',
+              color: 'blue',
+              date: new Date(Date.now()).toLocaleString()
+            },
+            {
+              title: 'green note',
+              text: 'text of the first note',
+              color: 'green',
               date: new Date(Date.now()).toLocaleString()
             }
           ]
@@ -79,6 +91,16 @@
 
           removeNote(index) {
             this.notes.splice(index, 1)
+          }
+        },
+
+        computed: {
+          sortedNotes() {
+            return sorted = this.notes.sort( function(a, b) {
+              if (a.color < b.color) return -1;
+              if (a.color > b.color) return 1;
+              return 0;
+            })
           }
         }
       });
