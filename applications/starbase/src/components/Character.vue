@@ -1,11 +1,13 @@
 <template>
-  <div class=''>
+  <div class='' @click='switchCharacter'>
     {{character}}
   </div>
 </template>
 
 <script>
 export default {
+  props: ['id'],
+
   data() {
     return {
       character: {}
@@ -13,17 +15,22 @@ export default {
   },
 
   methods: {
-    fetchCharacter() {
-      fetch('https://swapi.co/api/people/1', {
+    fetchCharacter(id) {
+      fetch(`https://swapi.co/api/people/${id}`, {
         method: 'GET'
       })
         .then(response => response.json())
         .then(json => this.character = json)
+    },
+
+    switchCharacter() {
+      let randomId = Math.floor(Math.random() * 83) + 1
+      this.fetchCharacter(randomId)
     }
   },
 
   created() {
-    this.fetchCharacter()
+    this.fetchCharacter(this.id)
   }
 }
 </script>
