@@ -1,6 +1,16 @@
 <template>
-  <div class='' @click='switchCharacter'>
-    {{character}}
+  <div class='col-md-4' @click='switchCharacter'>
+    <div class='character-card'>
+      <div class='card-block'>
+        <h4 class='card-title'>{{character.name}}</h4>
+        <p class='card-text'>
+          Height: {{character.height}}
+        </p>
+        <p class='card-text'>
+          Mass: {{character.mass}}
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
