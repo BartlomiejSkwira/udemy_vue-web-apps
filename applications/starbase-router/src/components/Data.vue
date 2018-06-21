@@ -1,26 +1,50 @@
 <template>
-  <div class=''>
-    Type: {{type}}
+  <div class='col-md-12'>
+    <item
+      v-for='(item, index) in items'
+      :key='index'
+      :item='item'
+    />
   </div>
 </template>
 
 
 <script>
+import Item from './Item.vue'
+
 export default {
   data() {
     return {
-      type: this.$route.params.type
+      type: this.$route.params.type,
+      items: []
     }
   },
 
   watch: {
-    '$route': 'change'
+    '$route': 'fetchItems'
   },
 
   methods: {
-    change() {
+    fetchItems() {
+      this.items = []
       this.type = this.$route.params.type
+      let initialIds = [1, 13, 14]
+      for (let i in initialIds) {
+        let id = initialIds[i]
+        console.log(id)
+        fetch(`https://swapi.co/api/${this.type}/${id}`,{
+          method: 'GET'
+        })
+        .then(response => response.json())
+        .then(json => this.items.push(json))
+      }
     }
-  }
+  },
+
+  created() {
+    this.fetchItems()
+  },
+
+  components: {Item}
 }
 </script>
